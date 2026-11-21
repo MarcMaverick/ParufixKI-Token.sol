@@ -1,5 +1,3 @@
-# ParufixKI-Token.sol
-PARUFYX KI Token (KIT): Zugang und Bezahlung für ein Netzwerk aus KI-Diensten auf der BNB Smart Chain. Nutzungs-Token, keine Rendite.
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -89,3 +87,36 @@ contract PARUFYXKIToken is ERC20, Ownable {
         return balanceOf(user) >= minHold;
     }
 }
+# PARUFYX KI Token (KIT)
+
+Zugang und Bezahlung für ein Netzwerk aus KI-Diensten auf der BNB Smart Chain.
+Nutzungs-Token, keine Rendite.
+
+## Funktionen
+
+- **Bezahlen:** `payForService(serviceId)` bezahlt eine KI-Anfrage in KIT.
+- **Halten:** Nach der Zahlung muss eine Mindestmenge (`minHold`) im Wallet bleiben.
+- **Gebühr:** 20 % jeder Gebühr werden verbrannt, der Rest geht an die Treasury.
+- **Dienste:** Der Owner legt KI-Dienste mit `addService` an und ändert sie mit `updateService`.
+- **Backend:** Das Event `ServiceUsed` startet im Backend die passende KI.
+
+## Token
+
+| Eigenschaft | Wert |
+| - | - |
+| Name | PARUFYX KI Token |
+| Symbol | KIT |
+| Netzwerk | BNB Smart Chain (BEP-20) |
+| Dezimalstellen | 18 |
+
+## Testen (Remix)
+
+1. `PARUFYXKIToken.sol` in Remix öffnen und mit Solidity 0.8.20 oder höher kompilieren.
+2. Zuerst in der Remix VM oder auf der BSC-Testnet deployen, nicht direkt im Mainnet.
+3. Konstruktor: `initialOwner`, `_treasury`, `totalSupply_`, `_minHold` (alle Mengen mit 18 Dezimalstellen).
+4. `addService("Kursanalyse", 10000000000000000000)` aufrufen (Preis: 10 KIT).
+5. Von einem zweiten Wallet `payForService(0)` aufrufen und das Event `ServiceUsed` prüfen.
+
+## Hinweis
+
+Der Contract ist noch nicht auf Sicherheit geprüft. Vor einem Mainnet-Deploy testen und prüfen lassen.
